@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page with Step Explanation</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .login-box {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 300px;
+      margin-bottom: 15px;
+    }
+    h2 { text-align: center; margin-bottom: 20px; color: #333; }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #4CAF50;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover { background: #45a049; }
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .success { color: green; }
+    .error { color: red; }
+
+    /* Explanation box */
+    .explain-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: none;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .toggle-btn {
+      background: #007BFF;
+      margin-top: 10px;
+      width: 200px;
+    }
+    .toggle-btn:hover { background: #0066cc; }
+    code {
+      background: #f0f0f0;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 90%;
+    }
+
+    /* Slides */
+    .step { display: none; }
+    .nav-buttons {
+      margin-top: 15px;
+      text-align: center;
+    }
+    .nav-buttons button {
+      width: auto;
+      margin: 0 5px;
+      background: #555;
+    }
+    .nav-buttons button:hover { background: #333; }
+  </style>
+</head>
+<body>
+
+  <!-- Login Box -->
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+    <div id="msg" class="message"></div>
+  </div>
+
+  <!-- Toggle Explanation Button -->
+  <button class="toggle-btn" onclick="toggleExplain()">Show Explanation</button>
+
+  <!-- Explanation Box with Slides -->
+  <div id="explain" class="explain-box">
+    <div class="step" id="step1">
+      <h3>Step 1: Structure of the File</h3>
+      <p>The file has 3 parts:</p>
+      <ul>
+        <li><b>HTML</b> → Structure (inputs, button, container)</li>
+        <li><b>CSS</b> → Style (center layout, colors, shadow)</li>
+        <li><b>JavaScript</b> → Logic to check login</li>
+      </ul>
+    </div>
+
+    <div class="step" id="step2">
+      <h3>Step 2: HTML (Login Form)</h3>
+      <pre>
+&lt;input type="text" id="username"&gt;
+&lt;input type="password" id="password"&gt;
+&lt;button onclick="login()"&gt;Login&lt;/button&gt;
+      </pre>
+      <p>
+        - <code>id="username"</code> & <code>id="password"</code> → JS reads input <br>
+        - Button → runs <code>login()</code> function <br>
+        - Message box → shows success/error
+      </p>
+    </div>
+
+    <div class="step" id="step3">
+      <h3>Step 3: CSS (Styling)</h3>
+      <p>
+        - Centers the box on screen<br>
+        - White card with rounded corners & shadow<br>
+        - Buttons styled with green background & hover effect<br>
+        - <code>.success</code> = green text, <code>.error</code> = red text
+      </p>
+    </div>
+
+    <div class="step" id="step4">
+      <h3>Step 4: JavaScript (Validation)</h3>
+      <pre>
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+  if(user === "admin" && pass === "12345") {
+    msg.textContent = "✅ Login Successful!";
+  } else {
+    msg.textContent = "❌ Wrong username or password";
+  }
+}
+      </pre>
+      <p>Checks username & password and shows result message.</p>
+    </div>
+
+    <div class="step" id="step5">
+      <h3>Step 5: Security Note</h3>
+      <p>
+        - This is only <b>client-side</b> demo.<br>
+        - Real websites check login on a server.<br>
+        - Passwords are stored securely (hashed).<br>
+      </p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-buttons">
+      <button onclick="prevStep()">⬅ Prev</button>
+      <button onclick="nextStep()">Next ➡</button>
+    </div>
+  </div>
+
+  <script>
+    // Login Function
+    function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const msg = document.getElementById("msg");
+
+      const correctUser = "admin";
+      const correctPass = "12345";
+
+      if (!username || !password) {
+        msg.textContent = "Please enter username and password.";
+        msg.className = "message error";
+        return;
+      }
+
+      if (username === correctUser && password === correctPass) {
+        msg.textContent = "✅ Login Successful!";
+        msg.className = "message success";
+      } else {
+        msg.textContent = "❌ Username or Password does not match!";
+        msg.className = "message error";
+      }
+    }
+
+    // Toggle Explanation
+    function toggleExplain() {
+      const box = document.getElementById("explain");
+      if (box.style.display === "none" || box.style.display === "") {
+        box.style.display = "block";
+        document.querySelector(".toggle-btn").textContent = "Hide Explanation";
+        showStep(currentStep);
+      } else {
+        box.style.display = "none";
+        document.querySelector(".toggle-btn").textContent = "Show Explanation";
+      }
+    }
+
+    // Step navigation
+    let currentStep = 1;
+    function showStep(n) {
+      const steps = document.querySelectorAll(".step");
+      steps.forEach(step => step.style.display = "none");
+      document.getElementById("step" + n).style.display = "block";
+    }
+    function nextStep() {
+      if (currentStep < 5) currentStep++;
+      showStep(currentStep);
+    }
+    function prevStep() {
+      if (currentStep > 1) currentStep--;
+      showStep(currentStep);
+    }
+  </script>
+
+</body>
+</html>
